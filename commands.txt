@@ -1,0 +1,32 @@
+npm install lodash
+
+netstat -aon | find /i "listening"
+
+db.currentOp(), db.currentOp(true);
+
+db.getCollectionNames()
+db.listCollections()
+show collections
+
+db.adminCommand('listDatabases');
+
+mongod --dbpath E:\setups\mongodb\data
+
+npm ls //check innstall modules
+
+npm install express-generator -g //create basic node application skeleton 
+express appName //create app
+express -h //see command options
+express --view=pug myapp //set view engine to pug
+npm install //install all dependancies
+npm start //start app
+set DEBUG=myapp:* & npm start //start app with debug
+
+typings install dt~node --global //install ts support in vs code through vs code command line
+
+typings install dt~express dt~serv-static dt~express-serv-static-core --global //install typings supports
+
+> set DEBUG=myapp:* & npm start //set debug
+
+
+

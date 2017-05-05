@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset=utf-8>
+	<meta name="viewport" content="width=620">
+	<title>HTML5 Demo: Drag and drop</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+</head>
+<body>
+
+
+<div id="newschool">
+	<h2>New school drag and drop</h2>
+	<div class="dragme"></div>
+	<div class="drophere">Drop here!</div>
+	<textarea class="drophere"></textarea>
+</div>
+<script >
+$(document).ready(function() {
+
+    $('#newschool .dragme')
+    
+        // Set the element as draggable.
+        .attr('draggable', 'true')
+
+        // Handle the start of dragging to initialize.
+        .bind('dragstart', function(ev) {
+			var elm = $(this); 
+			elm.html('Hiii');
+			setTimeout(function(){ 
+				elm.html('');
+			}, 1);
+            var dt = ev.originalEvent.dataTransfer;
+            dt.setData("Text", "Dropped in zone!");
+            return true;
+        })
+		
+		.bind('dragenter', function(ev) {
+            return true;
+        })
+		
+		
+
+        // Handle the end of dragging.
+        .bind('dragend', function(ev) {
+            $.log('#newschool .messages', 'Drag ended');
+            return false;
+        });
+
+    $('#newschool .drophere')
+
+        // Highlight on drag entering drop zone.
+        .bind('dragenter', function(ev) {
+            $(ev.target).addClass('dragover');
+            return false;
+        })
+
+        // Un-highlight on drag leaving drop zone.
+        .bind('dragleave', function(ev) {
+            $(ev.target).removeClass('dragover');
+            return false;
+        })
+
+        // Decide whether the thing dragged in is welcome.
+        .bind('dragover', function(ev) {
+            return false;
+        })
+
+        // Handle the final drop...
+        .bind('drop', function(ev) {
+            var dt = ev.originalEvent.dataTransfer;
+            console.log( dt.getData("Text") );
+			$(this).val( dt.getData("Text") );
+            $.log('#newschool .messages', dt.getData("Text"));
+            return false;
+        });
+
+});
+</script>
+<style>
+	.dragme{
+		height: 100px;
+		width: 100px;
+		align-content: center;
+		vertical-align: middle;
+		background-color: gray;		
+	}
+</style>
+</body>
+</html>

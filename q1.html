@@ -1,0 +1,49 @@
+<html>
+	<head></head>
+	<body>
+		<script>
+			function multiplication(x, y ){
+				var arrX = x.split("");
+				var arrY = y.split("");
+				
+				if( arrY.length < arrX.length ){
+					var temp = arrX.slice();
+					arrX = arrY.slice();
+					arrY = temp.slice();
+				}
+				
+				var result = 0, cary = 0, prevCary = 0, arrTotals = [], total = 0;
+				for( var i = 0; i < arrX.length; i++ ){
+					for( var j = arrY.length - 1; j >= 0; j-- ){
+						 total = arrY[ j ] * arrX[i];
+						 var temp = total;
+						 total = total.toString();
+						 if( total.length > 1 && j != 0 ){
+							cary = total.substring( 0, total.length - 1 );
+							total = total.substring( total.length - 1 );
+						 } else{
+							cary = 0;
+						 }
+						 
+						 total = parseInt(total) + parseInt( prevCary);
+						 total = total.toString();
+						 
+						 total = total + ( Array( (arrY.length - j) - 1 ).fill(0)).join("");
+						 
+						 arrTotals.push( total );
+						 prevCary = cary;
+					}
+				}
+				
+				for( var i =0; i < arrTotals.length; i++  ){
+					result += parseInt( arrTotals[i] );
+				}
+				
+				return result;
+			}
+			
+			var result = multiplication( '1000', '4' );
+			
+		</script>
+	</body>
+</html>

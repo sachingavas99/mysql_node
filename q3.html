@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TGIF Contest #6</title>
+    
+    <style>
+        #elHeader {
+            display: inline;
+        }
+        
+        #elSpan {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>TGIF Contest #6</h1>
+    
+    <p>Replace all &lt;span&gt; with &lt;div style=&quot;display: inline;&quot;&gt;</p>
+    
+    <span>This is the first span element</span>
+    
+    <div>
+        <span>This is another <span>nested</span> span element</span>
+        <span id="elSpan"><h2 id="elHeader">Header inside a span</h2> Some plain text</span>
+    </div>
+    
+    <input type="text" class="dropable" />
+	<script type="text/javascript">
+		var cols = document.querySelectorAll('.dropable');
+		function handleDrop(e) {
+		  // this/e.target is current target element.
+		  console.log('drop');
+			console.log( 'droped' );
+		  if (e.stopPropagation) {
+			e.stopPropagation(); // Stops some browsers from redirecting.
+		  }
+
+		  // Don't do anything if dropping the same column we're dragging.
+		  if (dragSrcEl != this) {
+			// Set the source column's HTML to the HTML of the column we dropped on.
+			dragSrcEl.innerHTML = this.innerHTML;
+			this.innerHTML = e.dataTransfer.getData('text/html');
+			debugger;
+			this.value = e.dataTransfer.getData('text/html');
+		  }
+
+		  return false;
+		}
+		
+		[].forEach.call(cols, function(col) {
+		  col.addEventListener('drop', handleDrop, false);
+		});
+	</script>
+<script type="text/javascript">
+    var elHeader = document.getElementById("elHeader"),
+        elImage = document.getElementById("elImage"),
+        elSpan = document.getElementById("elSpan");
+    
+    elHeader.addEventListener("mouseover", function() {
+        elHeader.style.color = "blue";
+    });
+    
+    elImage.addEventListener("click", function() {
+        elImage.style.display = "none";
+    });
+    
+    elSpan.addEventListener("mousedown", function() {
+        alert("mousedown");
+    });    
+	
+	function replaceTag() {
+		var allSpans = document.getElementsByTagName('span');
+		var spanFound = false;
+		for( var i in allSpans){
+			if( i >= 0 ){
+				var span = allSpans[i];
+				var div = document.createElement('div');
+				div.setAttribute('style', "display:inline");
+
+				div.innerHTML = span.innerHTML;
+				span.parentNode.replaceChild(div, span);
+
+				
+				//span.outerHTML = div.outerHTML.replace(/wns/g,"lmn");
+
+				spanFound = true;
+
+			}
+		}
+		return spanFound;
+	}
+	
+	var found = true;
+	do{ 
+	 found = replaceTag(); 
+	}while (found); 
+	
+	
+</script>
+</body>
+</html>
